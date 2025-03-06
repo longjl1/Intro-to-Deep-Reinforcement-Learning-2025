@@ -8,9 +8,9 @@ The **Racetrack Problem** involves controlling a **racecar** on a predefined tra
 
 - **State**: The car's **position** \((x, y)\) and **velocity** \((v_x, v_y)\).
 - **Actions**: The car can **accelerate** in different directions \([-1, 0, 1]\) for both \(x\) and \(y\) velocities.
-- **Rewards**:
+- **Rewards**: 
   - \( -1 \) for each step taken.
-  - \( +100 \) for reaching the **finish line**.
+  - \( +10/ +100/ +10000 \) for reaching the **finish line**.
   - \( -1000 \) for crashing into a wall (reset to the starting line).
 - **Objective**: Learn an **optimal policy** that minimizes the time taken to reach the finish line.
 
