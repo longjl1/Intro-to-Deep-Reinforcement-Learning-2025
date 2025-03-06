@@ -106,6 +106,12 @@ These notebooks are designed in the same spirit as the Chapter 2 materials:
 10. `09_small_gridworld_case_study.ipynb`
 11. `10_formula_sheet.ipynb`
 
+## Study Paths
+
+- If you want a fast conceptual pass: `00 -> 01 -> 04 -> 06 -> 10`
+- If you want intuition before equations: `01 -> 02 -> 03 -> 09`
+- If you want the value-function story end to end: `04 -> 05 -> 06 -> 07 -> 08`
+
 ## Dependencies
 
 Install the minimal dependencies with:
