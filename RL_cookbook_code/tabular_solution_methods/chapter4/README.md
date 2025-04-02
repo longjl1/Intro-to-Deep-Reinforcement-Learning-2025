@@ -32,3 +32,11 @@ This folder collects compact, notebook-first notes for Chapter 4 of Sutton and B
 - Quick pass: `00 -> 01 -> 03 -> 05 -> 11`
 - Planning focus: `01 -> 04 -> 05 -> 09`
 - Classic examples: `06 -> 07 -> 10`
+
+## Dependencies
+
+Install the minimal dependencies with:
+
+```bash
+pip install numpy matplotlib notebook
+```
