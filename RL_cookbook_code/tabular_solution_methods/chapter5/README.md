@@ -23,3 +23,11 @@ This folder contains compact Chapter 5 notes and minimal code snippets.
 - Quick pass: `00 -> 01 -> 03 -> 06 -> 12`
 - Blackjack focus: `08 -> 09 -> 10`
 - Off-policy focus: `05 -> 06 -> 07`
+
+## Dependencies
+
+Install the minimal dependencies with:
+
+```bash
+pip install numpy matplotlib notebook
+```
