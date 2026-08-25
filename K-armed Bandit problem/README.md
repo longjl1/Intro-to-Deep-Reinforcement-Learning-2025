@@ -80,4 +80,13 @@ The following conclusions were drawn based on the experimental results:
 To run the experiments, install the required Python packages:
 
 ```bash
-pip install numpy matplotlib
+pip install -r ../requirements.txt
+```
+
+Then open either notebook from the repository root:
+
+```bash
+jupyter lab "K-armed Bandit problem/Hw1_part1.ipynb"
+```
+
+The notebooks were created with Python 3.12.

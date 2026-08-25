@@ -17,4 +17,19 @@ The **Racetrack Problem** involves controlling a **racecar** on a predefined tra
 ## 🛠 Installation
 To run the project, ensure you have **Python 3.12.0+** and the required dependencies installed.
 
+From the repository root:
+
+```bash
+pip install -r requirements.txt
+jupyter lab "Racetrack problem/results/hw2.ipynb"
+```
+
+## Repository Contents
+
+- [`results/hw2.ipynb`](results/hw2.ipynb): environment, Monte Carlo control, and experiments
+- `results/test1_output/`: figures for the first racetrack configuration
+- `results/test2_output/`: figures for the second racetrack configuration
+- `Reinforcement Learning in The Racetrack Problem.pdf`: written report
+
+Several experiments use long training horizons. Reduce the number of training races before using the notebook as a quick smoke test.
 

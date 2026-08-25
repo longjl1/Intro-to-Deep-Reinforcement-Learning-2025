@@ -1,0 +1,5 @@
+# Optional environment for final/new.IPYNB and final/test.ipynb.
+-r requirements.txt
+gymnasium[box2d]>=1.0,<2
+opencv-python>=4.9,<5
+torch>=2.2,<3

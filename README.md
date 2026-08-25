@@ -1,115 +1,100 @@
-# Deep Reinforcement Learning 2025
+# Reinforcement Learning: From Bandits to Function Approximation
 
-This repository collects reinforcement learning coursework, experimental notebooks, and a growing Python-based study implementation of core algorithms from Sutton and Barto's *Reinforcement Learning: An Introduction*.
+A notebook-first learning repository for classical reinforcement learning, built around Sutton and Barto's *Reinforcement Learning: An Introduction* and course assignments completed in 2025.
 
-The repo is organized as a hybrid of:
+The repository contains **74 Jupyter notebooks**: a structured chapter-by-chapter cookbook, three course projects, and an experimental deep-RL workspace.
 
-- course assignment artifacts and reports
-- small experimental notebooks for classical tabular problems
-- a structured `RL_cookbook_code/` directory that reimplements major textbook ideas in compact, self-contained Jupyter notebooks
+## Start Here
 
-## Repository Scope
+The fastest route through the material is the [`RL_cookbook_code/`](RL_cookbook_code/) collection. Its notebooks are small, self-contained, and arranged in conceptual order.
 
-The main emphasis of this repository is educational and experimental rather than production software engineering. The code is intended to support:
+| Path | Topics | Best for |
+| --- | --- | --- |
+| [`RL_cookbook_code/`](RL_cookbook_code/) | Bandits, MDPs, DP, Monte Carlo, TD, n-step methods, planning, approximation | A guided textbook review |
+| [`K-armed Bandit problem/`](K-armed%20Bandit%20problem/) | Epsilon-greedy, softmax, UCB | Comparing exploration strategies |
+| [`Racetrack problem/`](Racetrack%20problem/) | Monte Carlo control | A larger tabular control problem |
+| [`Hw3/`](Hw3/) | FrozenLake, Q-learning, environment stochasticity | Gymnasium-based experimentation |
+| [`final/`](final/) | DQN for discrete-action CarRacing | Experimental deep RL |
 
-- concept review
-- algorithm intuition
-- lightweight empirical checks
-- notebook-based reproduction of canonical reinforcement learning examples
+## Quick Start
 
-Most implementations are deliberately minimal and readable. The goal is to surface the update rules, value-function definitions, approximation choices, and experimental setup clearly enough for study and adaptation.
-
-## Repository Structure
-
-### 1. `RL_cookbook_code/`
-
-This is the most systematic part of the repository. It contains chapter-oriented notebook collections that summarize and implement key topics from the Sutton and Barto text in Python.
-
-Currently covered chapters include:
-
-- `chapter2`: multi-armed bandits
-- `chapter3`: finite Markov decision processes
-- `chapter4`: dynamic programming
-- `chapter5`: Monte Carlo methods
-- `chapter6`: temporal-difference learning
-- `chapter7`: n-step bootstrapping
-- `chapter8`: planning and learning with tabular methods
-- `chapter9`: on-policy prediction with approximation
-- `chapter10`: on-policy control with approximation
-
-Each chapter folder typically includes:
-
-- a short overview notebook
-- several topic-specific notebooks
-- a formula sheet
-- a chapter README for local navigation
-
-The implementations are original Python notebook versions written for study purposes rather than line-by-line reproductions of textbook source material.
-
-### 2. `K-armed Bandit problem/`
-
-Coursework and experiments related to the 10-armed testbed and action-selection methods, including:
-
-- epsilon-greedy methods
-- softmax action selection
-- upper-confidence-bound action selection
-- comparison plots and homework notebooks
-
-### 3. `Racetrack problem/`
-
-Material related to Monte Carlo reinforcement learning in the racetrack problem, including:
-
-- written report material
-- result figures
-- notebook-based experimentation
-
-### 4. `Hw3/`
-
-FrozenLake-based homework material, including:
-
-- notebook experiments
-- generated figures
-- report artifacts
-
-### 5. `final/`
-
-An incomplete or archival final-project workspace. This folder is not the primary focus of the current repository organization.
-
-## Methodological Style
-
-Across the notebook collections, the repository favors:
-
-- tabular and low-dimensional examples before large-scale implementations
-- direct numerical experiments over framework-heavy abstractions
-- concise derivations paired with executable code
-- transparent approximations and interpretable visualizations
-
-This makes the repo useful as a compact research notebook companion for revisiting textbook examples, testing implementation details, and comparing related update rules across chapters.
-
-## Dependencies
-
-Most notebooks rely only on a small scientific Python stack:
+Python 3.12 is recommended because it matches the notebook metadata.
 
 ```bash
-pip install numpy matplotlib notebook
+git clone https://github.com/longjl1/Intro-to-Deep-Reinforcement-Learning-2025.git
+cd Intro-to-Deep-Reinforcement-Learning-2025
+
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+jupyter lab
 ```
 
-Some older coursework notebooks may additionally require environment packages such as `gymnasium`.
+The base environment covers the cookbook and the first three assignments. The CarRacing DQN notebooks need the optional deep-learning stack:
 
-## Intended Use
+```bash
+pip install -r requirements-final.txt
+```
 
-This repository is best read as:
+On macOS, Gymnasium's Box2D extra may require SWIG to be installed first (`brew install swig`).
 
-- a personal reinforcement learning study log
-- a chapter-by-chapter algorithm notebook collection
-- a compact reference for classical RL examples
+## Suggested Learning Paths
 
-It is less suitable as:
+### Compact foundations
 
-- a single installable RL library
-- a benchmark framework
-- a polished reproduction package for exact textbook figures
+`Chapter 2 -> Chapter 3 -> Chapter 4 -> Chapter 5 -> Chapter 6`
+
+This route moves from action selection to finite MDPs, planning, model-free prediction, and control.
+
+### Coursework route
+
+`K-armed Bandit -> Racetrack -> FrozenLake -> CarRacing DQN`
+
+This route follows the assignments from small stochastic problems to function approximation with a convolutional Q-network.
+
+### Approximation route
+
+`Chapter 6 -> Chapter 7 -> Chapter 9 -> Chapter 10 -> final/`
+
+This route focuses on bootstrapping, multi-step targets, state aggregation, tile coding, and deep value approximation.
+
+## Repository Layout
+
+```text
+.
+├── RL_cookbook_code/       # 67 notebooks covering textbook Chapters 2-10
+├── K-armed Bandit problem/ # Homework 1 notebooks, report, and figures
+├── Racetrack problem/      # Monte Carlo control notebook, report, and figures
+├── Hw3/                    # FrozenLake notebook, report, and figures
+├── final/                  # Experimental CarRacing DQN notebooks
+├── scripts/                # Dependency-free repository checks
+├── requirements.txt        # Base notebook environment
+└── requirements-final.txt  # Optional CarRacing/PyTorch environment
+```
+
+## Reproducibility Notes
+
+- Most notebooks are intentionally self-contained; some helper code is repeated to keep each topic readable in isolation.
+- Randomized experiments may not reproduce saved figures exactly unless the notebook sets a seed.
+- Some course experiments are computationally expensive. Before running an entire notebook, check its trial, episode, and time-step constants.
+- Generated images and PDFs are retained as course artifacts. `Hw3.zip` is kept as the original submission archive.
+- Run the `final/` notebooks from that directory so model checkpoints are written to `final/models/`.
+
+## Quality Check
+
+The repository includes a dependency-free validator for notebook JSON, Python syntax, kernel metadata, and saved error outputs:
+
+```bash
+python scripts/validate_notebooks.py
+```
+
+This is a structural check, not a full execution of every experiment. Full notebook execution is intentionally manual because several notebooks contain long training runs.
+
+## Scope
+
+This is an educational and experimental repository, not an installable reinforcement-learning library or benchmark suite. The implementations prioritize readable update rules and small numerical examples over framework abstractions and production APIs.
 
 ## License
 
-This repository is distributed under the license included in [LICENSE](LICENSE).
+Released under the [MIT License](LICENSE).

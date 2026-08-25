@@ -11,13 +11,6 @@ These notebooks are designed in the same spirit as the Chapter 2 materials:
 
 ## Notebook Guide
 
-### 1. Finite MDP basics
-- [01_finite_mdp_basics.ipynb](./01_finite_mdp_basics.ipynb)
-- Topics:
-  - state space, action space, rewards, transitions
-  - the Markov property
-  - discounted return
-
 ### 0. Chapter overview
 - [00_chapter3_overview.ipynb](./00_chapter3_overview.ipynb)
 - Topics:
