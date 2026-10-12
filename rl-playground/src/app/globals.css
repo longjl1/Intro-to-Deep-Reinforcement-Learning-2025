@@ -1,27 +1,67 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --ink: #233d4c;
-  --muted: #6d7c83;
-  --blue: #287eb2;
-  --orange: #d78c43;
-  --line: #dce2e4;
-  --paper: #f6f7f7;
-  --icon-swap-dur: 250ms;
-  --icon-swap-blur: 2px;
-  --icon-swap-start-scale: 0.25;
-  --icon-swap-ease: ease-in-out;
+  color-scheme: dark;
+  --ink: #eeeeee;
+  --muted: #a3a3a3;
+  --blue: #69b7e7;
+  --orange: #e6a16a;
+  --line: #292929;
+  --paper: #000000;
+  --background: #000000;
+  --foreground: #eeeeee;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: #171717;
+  --secondary-foreground: #eeeeee;
+  --accent: #202020;
+  --accent-foreground: #ffffff;
+  --muted-foreground: #a3a3a3;
+  --border: #303030;
+  --input: #303030;
+  --ring: #ffffff;
+  --popover: #080808;
+  --popover-foreground: #eeeeee;
+  --destructive: #e6a16a;
+  --radius: 0.25rem;
+  --icon-swap-dur: 150ms;
+  --icon-swap-blur: 0px;
+  --icon-swap-start-scale: 0.85;
+  --icon-swap-ease: ease-out;
+}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: #171717;
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-destructive: var(--destructive);
+  --radius-md: var(--radius);
+  --radius-sm: 0.2rem;
 }
 * { box-sizing: border-box; }
-body { margin: 0; color: var(--ink); background: var(--paper); font-family: Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; font-size: 14px; -webkit-font-smoothing: antialiased; }
-button, input, select { font: inherit; }
-button, select, input[type=range], input[type=checkbox] { cursor: pointer; }
+body { margin: 0; color: var(--ink); background: #000; font-family: "Open Sans", "Noto Sans SC", sans-serif; font-size: 14px; font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased; }
+button, input, select, code, pre, svg text { font-family: inherit; }
+button, input, select { font-size: inherit; }
+button, select, input[type=range] { cursor: pointer; }
 button { color: inherit; }
 button:disabled { opacity: .38; cursor: not-allowed; }
 button, a, input, select, [tabindex] { -webkit-tap-highlight-color: transparent; }
-:focus-visible { outline: 3px solid #d79446; outline-offset: 4px; }
-button, input, select { border-radius: 0; }
+:focus-visible { outline: 2px solid white; outline-offset: 4px; }
 a { color: inherit; text-underline-offset: 4px; }
 svg { display: block; }
-::selection { background: #d8e9f1; }
+::selection { background: #344556; color: white; }
 .t-icon-swap {
   position: relative;
   display: inline-grid;

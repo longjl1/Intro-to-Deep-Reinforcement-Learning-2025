@@ -1,5 +1,7 @@
 'use client';
 import { line, scaleLinear, area } from 'd3';
+import { motion, useReducedMotion } from 'motion/react';
+import { AgentMarker } from './AgentMarker';
 import { ARROWS, GridEnvironment, isPlanning, type Snapshot, type EnvironmentConfig, type Point } from '../lib/rl';
 import styles from './Playground.module.css';
 
@@ -9,15 +11,16 @@ export function Icon({ name, size = 18 }: { name: 'play' | 'pause' | 'step' | 'r
 }
 export function MiniMap({ config }: { config: EnvironmentConfig }) {
   const env = new GridEnvironment(config);
-  return <svg viewBox={`0 0 ${env.cols * 10} ${env.rows * 10}`} aria-hidden="true">{env.layout.join('').split('').map((c, s) => <rect key={s} x={(s % env.cols) * 10 + 1} y={Math.floor(s / env.cols) * 10 + 1} width="8" height="8" rx="1" fill={c === '#' ? '#6b7d86' : c === 'G' ? '#4a8caf' : c === 'S' ? '#203e50' : ['T', 'H', 'C'].includes(c) ? '#dfa264' : '#e1e7e9'} />)}</svg>;
+  return <svg viewBox={`0 0 ${env.cols * 10} ${env.rows * 10}`} aria-hidden="true">{env.layout.join('').split('').map((c, s) => <rect key={s} x={(s % env.cols) * 10 + 1} y={Math.floor(s / env.cols) * 10 + 1} width="8" height="8" rx="1" fill={c === '#' ? '#555' : c === 'G' ? '#69b7e7' : c === 'S' ? '#fff' : ['T', 'H', 'C'].includes(c) ? '#e6a16a' : '#202020'} />)}</svg>;
 }
-export function Board({ config, snap, selected, select, heat, arrows, trace }: { config: EnvironmentConfig; snap: Snapshot | null; selected: number; select: (s: number) => void; heat: boolean; arrows: boolean; trace: boolean }) {
+export function Board({ config, snap, selected, select, heat, arrows, trace, running, fast, speed }: { config: EnvironmentConfig; snap: Snapshot | null; selected: number; select: (s: number) => void; heat: boolean; arrows: boolean; trace: boolean; running: boolean; fast: boolean; speed: number }) {
+  const reduced = useReducedMotion();
   const env = new GridEnvironment(config);
   const cell = 60;
   const padding = 26;
   const values = snap?.values ?? Array(env.size).fill(0);
   const domain = Math.max(1, ...values.map(v => Math.abs(v)));
-  const color = scaleLinear<string>().domain([-domain, 0, domain]).range(['#cf8949', '#f1f3f2', '#438ab3']);
+  const color = scaleLinear<string>().domain([-domain, 0, domain]).range(['#9c5932', '#151515', '#26678b']);
   const active = new Set(env.active);
   const center = (s: number): [number, number] => [(s % env.cols) * cell + padding + cell / 2, Math.floor(s / env.cols) * cell + padding + cell / 2];
   const agent = snap?.state ?? env.start;
@@ -32,18 +35,16 @@ export function Board({ config, snap, selected, select, heat, arrows, trace }: {
         const obstacle = c === '#', hazard = ['C', 'H', 'T'].includes(c);
         const label = c === 'S' ? '起点' : c === 'G' ? '终点' : c === 'C' ? '悬崖' : c === 'H' ? '冰洞' : c === 'T' ? '陷阱' : '';
         return <g key={s} role="button" tabIndex={0} aria-pressed={selected === s} aria-label={`格子 ${Math.floor(s / env.cols) + 1},${s % env.cols + 1} ${label || (obstacle ? '墙壁' : '普通')}，价值 ${values[s].toFixed(3)}`} onClick={() => select(s)} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(s); } }} className={styles.cell}>
-          <rect x={x + 2} y={y + 2} width={56} height={56} rx="3" fill={obstacle ? '#84949b' : hazard ? '#f1d9c2' : c === 'G' ? '#c5dde8' : heat ? color(values[s]) : '#edf0f0'} stroke={selected === s ? '#203e50' : '#fff'} strokeWidth={selected === s ? 2 : 1} />
+          <rect x={x + 2} y={y + 2} width={56} height={56} rx="3" fill={obstacle ? '#292929' : hazard ? '#291c12' : c === 'G' ? '#122d3b' : heat ? color(values[s]) : '#151515'} stroke={selected === s ? '#fff' : '#333'} strokeWidth={selected === s ? 2 : 1} />
           {obstacle && <path d={`M${x + 12} ${y + 18}h36m-36 12h36m-36 12h36`} stroke="#ffffff50" strokeWidth="2" />}
-          {hazard && <path d={`m${x + 25} ${y + 18} 10 10m0-10-10 10`} stroke="#b37942" strokeWidth="2" />}
-          {c === 'G' && <path d={`M${x + 25} ${y + 31}V${y + 13}l14 5-14 5`} fill="#367d9f" stroke="#367d9f" strokeWidth="2" />}
-          {arrows && active.has(s) && snap && snap.visits[s] > 0 && <text x={x + 30} y={y + 29} textAnchor="middle" fill="#254b60" fontSize="24">{ARROWS[snap.policy[s]]}</text>}
+          {hazard && <path d={`m${x + 25} ${y + 18} 10 10m0-10-10 10`} stroke="#e6a16a" strokeWidth="2" />}
+          {c === 'G' && <path d={`M${x + 25} ${y + 31}V${y + 13}l14 5-14 5`} fill="#69b7e7" stroke="#69b7e7" strokeWidth="2" />}
+          {arrows && active.has(s) && snap && snap.visits[s] > 0 && <text x={x + 30} y={y + 29} textAnchor="middle" fill="#eee" fontSize="24">{ARROWS[snap.policy[s]]}</text>}
           {label ? <text x={x + 30} y={y + 48} textAnchor="middle" className={styles.cellLabel}>{label}</text> : !obstacle && <text x={x + 30} y={y + 49} textAnchor="middle" className={styles.cellValue}>{values[s].toFixed(2)}</text>}
         </g>;
       })}
-      {trace && !planning && path && <path d={path} fill="none" stroke="#d98940" strokeWidth="2.5" strokeDasharray="4 5" opacity=".7" pointerEvents="none" />}
-      <g transform={`translate(${center(agent).join(',')})`} pointerEvents="none">
-        {planning ? <rect x="-24" y="-24" width="48" height="48" rx="2" fill="none" stroke="#d18537" strokeWidth="2" strokeDasharray="5 3" /> : <><circle r="12" fill="#244657" stroke="#fff" strokeWidth="3" /><circle cx="-3" cy="-2" r="1.4" fill="white" /><circle cx="4" cy="-2" r="1.4" fill="white" /><path d="M-3 4h7" stroke="white" strokeWidth="1.4" /></>}
-      </g>
+      {trace && !planning && path && <path d={path} fill="none" stroke="#e6a16a" strokeWidth="2" strokeDasharray="4 5" opacity=".65" pointerEvents="none" />}
+      {planning ? <g transform={`translate(${center(agent).join(',')})`} pointerEvents="none"><motion.rect key={agent} x="-24" y="-24" width="48" height="48" rx="2" fill="none" stroke="#e6a16a" strokeWidth="2" strokeDasharray="5 3" initial={{ opacity: reduced ? 1 : 0.5 }} animate={{ opacity: 1 }} transition={{ duration: reduced ? 0 : 0.1 }} /></g> : <AgentMarker snap={snap} position={center(agent)} cols={env.cols} running={running} fast={fast} speed={speed} />}
     </svg>
     <div className={styles.scale}><span>−{domain.toFixed(1)}</span><i /><span>+{domain.toFixed(1)}</span><small>状态价值 V(s)</small></div>
   </div>;
@@ -58,10 +59,10 @@ export function LearningChart({ points, planning }: { points: Point[]; planning:
   const mean = planning ? [] : points.slice(19).map((p, i) => ({ x: p.x, y: points.slice(i, i + 20).reduce((sum, q) => sum + q.y, 0) / 20 }));
   return <div className={styles.chart}>
     <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={planning ? '每次扫描的最大价值变化曲线' : '回合回报与二十回合移动平均曲线'}>
-      {y.ticks(3).map(tick => <g key={tick}><line x1={left} x2={width - right} y1={y(tick)} y2={y(tick)} stroke="#dce3e6" strokeDasharray="2 3" /><text x={left - 7} y={y(tick) + 3} textAnchor="end" className={styles.axisText}>{Math.abs(tick) >= 1000 ? `${(tick / 1000).toFixed(0)}k` : Number(tick.toPrecision(3))}</text></g>)}
-      {points.length > 1 && <><path d={area<Point>().x(p => x(p.x)).y0(height - bottom).y1(p => y(p.y))(points) ?? ''} fill="#3a89b00d" /><path d={curve(points) ?? ''} fill="none" stroke={planning ? '#377fa4' : '#aec7d5'} strokeWidth="1.5" />{mean.length > 1 && <path d={curve(mean) ?? ''} fill="none" stroke="#2d799f" strokeWidth="2.2" />}</>}
-      {points.length === 1 && <circle cx={x(points[0].x)} cy={y(points[0].y)} r="3" fill="#377fa4" />}
-      {!points.length && <text x="182" y="73" textAnchor="middle" fill="#8d9ba2" fontSize="11">{planning ? '开始扫描，观察价值收敛' : '完成第一个回合后，曲线将在这里生长'}</text>}
+      {y.ticks(3).map(tick => <g key={tick}><line x1={left} x2={width - right} y1={y(tick)} y2={y(tick)} stroke="#333" strokeDasharray="2 3" /><text x={left - 7} y={y(tick) + 3} textAnchor="end" className={styles.axisText}>{Math.abs(tick) >= 1000 ? `${(tick / 1000).toFixed(0)}k` : Number(tick.toPrecision(3))}</text></g>)}
+      {points.length > 1 && <><path d={area<Point>().x(p => x(p.x)).y0(height - bottom).y1(p => y(p.y))(points) ?? ''} fill="#69b7e708" /><path d={curve(points) ?? ''} fill="none" stroke={planning ? '#69b7e7' : '#799bab'} strokeWidth="1.5" />{mean.length > 1 && <path d={curve(mean) ?? ''} fill="none" stroke="#69b7e7" strokeWidth="2.2" />}</>}
+      {points.length === 1 && <circle cx={x(points[0].x)} cy={y(points[0].y)} r="3" fill="#69b7e7" />}
+      {!points.length && <text x="182" y="73" textAnchor="middle" fill="#a3a3a3" fontSize="11">{planning ? '尚无扫描数据' : '尚无完整回合数据'}</text>}
       <text x={left} y={height - 7} className={styles.axisText}>{points[0]?.x ?? 0}</text><text x={width - right} y={height - 7} textAnchor="end" className={styles.axisText}>{points.at(-1)?.x ?? 100}</text>
     </svg>
     <div className={styles.chartLegend}><span><i />{planning ? '最大变化 Δ' : '回合回报'}</span>{!planning && <span><i />20 回合均值</span>}<small>{planning ? '扫描次数 →' : '回合 →'}</small></div>

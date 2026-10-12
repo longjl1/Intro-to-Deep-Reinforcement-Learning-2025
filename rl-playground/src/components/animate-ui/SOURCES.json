@@ -1,0 +1,82 @@
+[
+  {
+    "name": "components-buttons-button",
+    "source": "https://animate-ui.com/r/components-buttons-button.json",
+    "file": "components/animate-ui/components/buttons/button.tsx"
+  },
+  {
+    "name": "components-radix-accordion",
+    "source": "https://animate-ui.com/r/components-radix-accordion.json",
+    "file": "components/animate-ui/components/radix/accordion.tsx"
+  },
+  {
+    "name": "components-radix-switch",
+    "source": "https://animate-ui.com/r/components-radix-switch.json",
+    "file": "components/animate-ui/components/radix/switch.tsx"
+  },
+  {
+    "name": "components-radix-tabs",
+    "source": "https://animate-ui.com/r/components-radix-tabs.json",
+    "file": "components/animate-ui/components/radix/tabs.tsx"
+  },
+  {
+    "name": "components-radix-tooltip",
+    "source": "https://animate-ui.com/r/components-radix-tooltip.json",
+    "file": "components/animate-ui/components/radix/tooltip.tsx"
+  },
+  {
+    "name": "hooks-use-auto-height",
+    "source": "https://animate-ui.com/r/hooks-use-auto-height.json",
+    "file": "hooks/use-auto-height.tsx"
+  },
+  {
+    "name": "hooks-use-controlled-state",
+    "source": "https://animate-ui.com/r/hooks-use-controlled-state.json",
+    "file": "hooks/use-controlled-state.tsx"
+  },
+  {
+    "name": "lib-get-strict-context",
+    "source": "https://animate-ui.com/r/lib-get-strict-context.json",
+    "file": "lib/get-strict-context.tsx"
+  },
+  {
+    "name": "primitives-animate-slot",
+    "source": "https://animate-ui.com/r/primitives-animate-slot.json",
+    "file": "components/animate-ui/primitives/animate/slot.tsx"
+  },
+  {
+    "name": "primitives-buttons-button",
+    "source": "https://animate-ui.com/r/primitives-buttons-button.json",
+    "file": "components/animate-ui/primitives/buttons/button.tsx"
+  },
+  {
+    "name": "primitives-effects-auto-height",
+    "source": "https://animate-ui.com/r/primitives-effects-auto-height.json",
+    "file": "components/animate-ui/primitives/effects/auto-height.tsx"
+  },
+  {
+    "name": "primitives-effects-highlight",
+    "source": "https://animate-ui.com/r/primitives-effects-highlight.json",
+    "file": "components/animate-ui/primitives/effects/highlight.tsx"
+  },
+  {
+    "name": "primitives-radix-accordion",
+    "source": "https://animate-ui.com/r/primitives-radix-accordion.json",
+    "file": "components/animate-ui/primitives/radix/accordion.tsx"
+  },
+  {
+    "name": "primitives-radix-switch",
+    "source": "https://animate-ui.com/r/primitives-radix-switch.json",
+    "file": "components/animate-ui/primitives/radix/switch.tsx"
+  },
+  {
+    "name": "primitives-radix-tabs",
+    "source": "https://animate-ui.com/r/primitives-radix-tabs.json",
+    "file": "components/animate-ui/primitives/radix/tabs.tsx"
+  },
+  {
+    "name": "primitives-radix-tooltip",
+    "source": "https://animate-ui.com/r/primitives-radix-tooltip.json",
+    "file": "components/animate-ui/primitives/radix/tooltip.tsx"
+  }
+]

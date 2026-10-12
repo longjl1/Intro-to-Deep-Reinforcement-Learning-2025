@@ -45,7 +45,8 @@ npm run preview       # 在 3000 端口预览静态生产构建
 2. 按播放持续学习，或者「快速训练 +100」。采样算法增加 100 个回合，动态规划增加最多 100 个完整扫描，收敛后提前停止。
 3. 点击地图格子查看四个动作的价值。开启／关闭热力图、策略箭头和轨迹。
 4. 开启「双算法对比」，A、B 分别选择算法和参数；顶部共同控制运行，两侧按钮可独立暂停。
-5. 「评估策略」会暂停训练，使用相同的 100 组评估种子，关闭探索与学习，显示平均回报、成功率、成功回合平均步数以及超时／失败数量。
+5. 展开「算法说明」查看中文解释、实时伪代码高亮和建议实验。
+6. 「评估策略」会暂停训练，使用相同的 100 组评估种子，关闭探索与学习，显示平均回报、成功率、成功回合平均步数以及超时／失败数量。
 
 数值框在失去焦点或按 Enter 时应用。环境、种子变化重置两侧；算法和学习参数变化重置对应侧。速度与显示选项即时生效。重置按钮将两侧按当前参数重新初始化。
 
@@ -106,6 +107,10 @@ tests/                  # 算法与调度测试
 - [TensorFlow Playground](https://github.com/tensorflow/playground)：界面布局和蓝橙价值映射的设计灵感。本项目自主实现 Next.js / React 界面，没有复制原仓库实现或商标。
 - [Sutton & Barto, Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book-2nd.html)：第 4–6 章的动态规划、Monte Carlo 与 TD 方法。
 - [Gymnasium Cliff Walking](https://gymnasium.farama.org/environments/toy_text/cliff_walking/) 与 [FrozenLake](https://gymnasium.farama.org/environments/toy_text/frozen_lake/)：预设环境语义参考。
-- 播放／暂停图标的 CSS 动效采用本地 `transitions-dev` 技能的 icon-swap 片段，保留减少动态效果支持。
+- [Animate UI](https://animate-ui.com/)：按钮、Radix 开关、标签页、折叠面板和提示组件按官方 registry 导入。完整来源见 `src/components/animate-ui/SOURCES.json`，许可证见同目录 `LICENSE.md`。当前官方许可证为 MIT + Commons Clause，允许用于应用和网站，限制单独销售或分发原始组件集合。
+- 本地适配：移除按钮、开关和标签页装饰阴影，减小按钮缩放幅度，并修正 Switch 将 Radix 专用状态回调传给 DOM 的控制台警告。
+- [Motion](https://motion.dev/)：SVG Agent 的格子位移与轻微缩放弹跳。动画只读取快照；回合重启、悬崖返回、高速批次和重置直接定位，暂停会停止并定位到最新快照。
+- [Open Sans](https://fontsource.org/fonts/open-sans) 与 [Noto Sans SC](https://fontsource.org/fonts/noto-sans-sc)：通过 Fontsource 本地打包 400／500／600 字重，中文按 `unicode-range` 分片请求，不依赖 Google Fonts 或 CDN；字体采用 OFL-1.1。
+- 全站纯黑背景，黑白灰控件；地图和曲线保留蓝橙功能色。遵循 `prefers-reduced-motion`，关闭 Agent 位移和弹跳。
 
 范围限定为浏览器内经典算法教学，支持本地运行与 GitHub Pages 静态发布。当前版本不包含地图编辑、Bandit、深度强化学习、用户账户或实验持久化；旧迷宫演示与 notebooks 保持独立。
