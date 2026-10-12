@@ -2,7 +2,7 @@
 
 一个独立的 Next.js 教学应用：在浏览器里观察六种经典强化学习算法，单步展开真实数值更新，并在同一环境中对比两个算法。无需 Python、模型服务或外部 API。
 
-**在线演示：[RL Playground](https://longjl1.github.io/Intro-to-Deep-Reinforcement-Learning-2025/)**
+**在线演示：[RL Playground](https://longjl1.github.io/Reinforcement-Learning-Playground/)**
 
 ## GitHub Pages 部署
 
@@ -13,7 +13,7 @@ GitHub Settings → Pages 的发布来源使用 **GitHub Actions**。构建通�
 手工复现 GitHub Pages 构建：
 
 ```bash
-NEXT_PUBLIC_BASE_PATH=/Intro-to-Deep-Reinforcement-Learning-2025 npm run build
+NEXT_PUBLIC_BASE_PATH=/Reinforcement-Learning-Playground npm run build
 ```
 
 该构建必须在对应子路径下提供服务；恢复普通本地预览前，重新运行不带该变量的 `npm run build`。
